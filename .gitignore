@@ -1,0 +1,6 @@
+#ignore uneccesary files
+.env
+weather_pipeline_environment
+__pycache__/
+.geocache.sqlite
+.cache.sqlite
