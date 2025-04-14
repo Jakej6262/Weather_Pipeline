@@ -1,6 +1,10 @@
-#ignore uneccesary files
+# Ignore virtual environment and environment files
 .env
-weather_pipeline_environment
+weather_pipeline_environment/
+
+# Ignore Python bytecode cache
 __pycache__/
+
+# Ignore cached API responses (sqlite files)
 .geocache.sqlite
 .cache.sqlite
