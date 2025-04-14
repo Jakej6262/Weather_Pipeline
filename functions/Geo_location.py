@@ -32,8 +32,8 @@ def geo_locate(name):
                 input_option=int(input("Select an Option # or 0 to cancel: "))
 
                 if input_option==0:
-                    print("Cancelled")
-                    return None
+                    break
+               
                 
                 if 1 <= input_option <= len(results):
                     selection=results[input_option-1]

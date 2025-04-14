@@ -15,9 +15,14 @@ def get_response(name,start_date,end_date):
 	# Set up the Open Meteo API connection
 	openmeteo_wrapper=openmeteo_requests.Client(session=Rt)
 	location_info=geo_locate(name)
-	if location_info:
-		latitude=location_info['latitude']
-		longitude=location_info['longitude']
+
+	if not location_info:
+		print("Location selection cancelled or failed.")
+		return None  # Exit cleanly
+	
+	
+	latitude=location_info['latitude']
+	longitude=location_info['longitude']
 	dates={"start_date": start_date, "end_date": end_date}
 
 	#Set up url connection and parameters
@@ -35,26 +40,5 @@ def get_response(name,start_date,end_date):
 	return historical_responses[0]
 
 
-connection=get_response("San Diego", "2023-06-01", "2023-06-08")
-
-
-def get_weather_data(response):
-	hourly_data = response.Hourly()
-	Temp_data=hourly_data.Variables(0).ValuesAsNumpy()
-	timestamp=hourly_data.Time()
-	converted_timestamp = pd.to_datetime(timestamp, unit='s')
-	length=len(Temp_data)
-	timestamps = pd.date_range(start=converted_timestamp, periods=len(Temp_data), freq="h")
-
-	Temp_df = pd.DataFrame({'Timestamp': timestamps, 'Temperature': Temp_data})
-	#convert temperature to fahrenheit
-	Temp_df['Temperature'] = Temp_df['Temperature'] * 9/5 + 32
-
-	print(Temp_df.head())
-
-try:
-	get_weather_data(connection)
-except Exception as e:
-	print(f"An error occurred: Please enter a valid response")
 
 
