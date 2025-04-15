@@ -15,6 +15,7 @@ def get_response(name,start_date,end_date):
 	# Set up the Open Meteo API connection
 	openmeteo_wrapper=openmeteo_requests.Client(session=Rt)
 	location_info=geo_locate(name)
+	
 
 	if not location_info:
 		print("Location selection cancelled or failed.")
@@ -32,7 +33,7 @@ def get_response(name,start_date,end_date):
 		"longitude": longitude,
 		"start_date": f"{dates['start_date']}",
 		"end_date": f"{dates['end_date']}",
-    	"hourly": "temperature_2m"
+    	"hourly": ["temperature_2m", "relative_humidity_2m", "precipitation", "apparent_temperature", "rain", "snowfall", "snow_depth"]
 	}
 
 	historical_responses = openmeteo_wrapper.weather_api(historical_url, params=params)
