@@ -3,7 +3,7 @@
 weather_pipeline_environment/
 
 # Ignore Python bytecode cache
-__pycache__/
+functions/__pycache__
 
 # Ignore cached API responses (sqlite files)
 .geocache.sqlite

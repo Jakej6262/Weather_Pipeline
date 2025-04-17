@@ -1,5 +1,5 @@
 import pandas as pd
-from Open_meteo_connection import get_response
+from Get_Response import get_response
 from Geo_location import geo_locate
 
 
@@ -19,9 +19,9 @@ def get_weather_data(response):
 	timestamps = pd.date_range(start=converted_timestamp, periods=len(Temp_data), freq="h")
 
 	Temp_df = pd.DataFrame({'Timestamp': timestamps, 'Temperature': Temp_data, 'Feels like': hourly_apparent_temperature, 'Humidity': hourly_relative_humidity, 'Precipitation': hourly_precipitation})
-	#convert temperature to fahrenheit
+	#convert temperature and apparent temperature to fahrenheit
 	Temp_df['Temperature'] = Temp_df['Temperature'] * 9/5 + 32
+	Temp_df['Feels like'] = Temp_df['Feels like'] * 9/5 + 32
 
 	return Temp_df
-
 
